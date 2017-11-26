@@ -74,7 +74,7 @@ class PhrasesM:
         db_connection.commit()
 
     @staticmethod
-    def get(i_id: int):
+    def get(i_id: int) -> None:
         db_connection = db.Helper.get_db_connection()
         db_cursor = db_connection.cursor()
         db_cursor_result = db_cursor.execute(
@@ -104,7 +104,7 @@ class PhrasesM:
         return ret_reminder_list
 
     @staticmethod
-    def remove(i_id_int):
+    def remove(i_id_int: int) -> None:
         db_connection = db.Helper.get_db_connection()
         db_cursor = db_connection.cursor()
         db_cursor.execute(
@@ -115,7 +115,7 @@ class PhrasesM:
         db_connection.commit()
 
     @staticmethod
-    def update_title(i_id: int, i_new_title: str):
+    def update_title(i_id: int, i_new_title: str) -> None:
         db_connection = db.Helper.get_db_connection()
         db_cursor = db_connection.cursor()
         db_cursor.execute(
@@ -127,7 +127,7 @@ class PhrasesM:
         db_connection.commit()
 
     @staticmethod
-    def update_in_breath(i_id: int, i_new_in_breath: str):
+    def update_in_breath(i_id: int, i_new_in_breath: str) -> None:
         db_connection = db.Helper.get_db_connection()
         db_cursor = db_connection.cursor()
         db_cursor.execute(
@@ -139,7 +139,7 @@ class PhrasesM:
         db_connection.commit()
 
     @staticmethod
-    def update_out_breath(i_id: int, i_new_out_breath: str):
+    def update_out_breath(i_id: int, i_new_out_breath: str) -> None:
         db_connection = db.Helper.get_db_connection()
         db_cursor = db_connection.cursor()
         db_cursor.execute(
@@ -271,7 +271,7 @@ class RestActionsM:
         # -the asterisk (*) will "expand" the tuple into separate arguments for the function header
 
     @staticmethod
-    def remove(i_id_int):
+    def remove(i_id_int: int) -> None:
         db_connection = db.Helper.get_db_connection()
         db_cursor = db_connection.cursor()
         db_cursor.execute(
@@ -282,7 +282,7 @@ class RestActionsM:
         db_connection.commit()
 
     @staticmethod
-    def get_all():
+    def get_all() -> list:
         ret_reminder_list = []
         db_connection = db.Helper.get_db_connection()
         db_cursor = db_connection.cursor()
@@ -297,7 +297,7 @@ class RestActionsM:
         return ret_reminder_list
 
     @staticmethod
-    def update_title(i_id: int, i_new_title: str):
+    def update_title(i_id: int, i_new_title: str) -> None:
         db_connection = db.Helper.get_db_connection()
         db_cursor = db_connection.cursor()
         db_cursor.execute(
@@ -309,7 +309,7 @@ class RestActionsM:
         db_connection.commit()
 
     @staticmethod
-    def update_rest_action_image_path(i_id: int, i_new_image_path: str):
+    def update_rest_action_image_path(i_id: int, i_new_image_path: str) -> None:
         db_connection = db.Helper.get_db_connection()
         db_cursor = db_connection.cursor()
         db_cursor.execute(
@@ -418,7 +418,7 @@ class SettingsM:
         # -the asterisk (*) will "expand" the tuple into separate arguments for the function header
 
     @staticmethod
-    def update_rest_reminder_active(i_reminder_active: bool):
+    def update_rest_reminder_active(i_reminder_active: bool) -> None:
         db_connection = db.Helper.get_db_connection()
         db_cursor = db_connection.cursor()
         new_value_bool_as_int = db.SQLITE_TRUE_INT if i_reminder_active else db.SQLITE_FALSE_INT
@@ -434,7 +434,7 @@ class SettingsM:
         logging.debug("result=" + str(SettingsM.get().rest_reminder_active_bool))
 
     @staticmethod
-    def update_rest_reminder_interval(i_reminder_interval: int):
+    def update_rest_reminder_interval(i_reminder_interval: int) -> None:
         db_connection = db.Helper.get_db_connection()
         db_cursor = db_connection.cursor()
         db_cursor.execute(
@@ -446,7 +446,7 @@ class SettingsM:
         db_connection.commit()
 
     @staticmethod
-    def update_breathing_reminder_active(i_reminder_active: bool):
+    def update_breathing_reminder_active(i_reminder_active: bool) -> None:
         db_connection = db.Helper.get_db_connection()
         db_cursor = db_connection.cursor()
         db_cursor.execute(
@@ -458,7 +458,7 @@ class SettingsM:
         db_connection.commit()
 
     @staticmethod
-    def update_breathing_reminder_interval(i_reminder_interval: int):
+    def update_breathing_reminder_interval(i_reminder_interval: int) -> None:
         db_connection = db.Helper.get_db_connection()
         db_cursor = db_connection.cursor()
         db_cursor.execute(
@@ -470,7 +470,7 @@ class SettingsM:
         db_connection.commit()
 
     @staticmethod
-    def update_breathing_reminder_length(i_reminder_length: int):
+    def update_breathing_reminder_length(i_reminder_length: int) -> None:
         db_connection = db.Helper.get_db_connection()
         db_cursor = db_connection.cursor()
         db_cursor.execute(
@@ -482,7 +482,7 @@ class SettingsM:
         db_connection.commit()
 
 
-def export_all():
+def export_all() -> None:
     csv_writer = csv.writer(open(mc.mc_global.get_user_files_path("exported.csv"), "w"))
     for phrase in PhrasesM.get_all():
         # time_datetime = datetime.date.fromtimestamp(phrase.date_added_it)
@@ -490,7 +490,7 @@ def export_all():
         csv_writer.writerow((phrase.title_str, phrase.ib_str, phrase.ob_str))
 
 
-def populate_db_with_setup_data():
+def populate_db_with_setup_data() -> None:
     PhrasesM.add(
         "In, Out",
         "Breathing in, I know I am breathing in",
@@ -546,7 +546,7 @@ def populate_db_with_setup_data():
     )
 
 
-def populate_db_with_test_data():
+def populate_db_with_test_data() -> None:
     populate_db_with_setup_data()
 
 
@@ -561,7 +561,7 @@ def breathing_reminder_active() -> bool:
     return ret_value_bool
 
 
-def get_app_systray_icon_path():
+def get_app_systray_icon_path() -> str:
     icon_file_name_str = "icon.png"
     settings = SettingsM.get()
     b_active = breathing_reminder_active()
